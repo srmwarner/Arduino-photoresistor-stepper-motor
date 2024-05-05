@@ -1,32 +1,21 @@
 #include <Arduino.h>
 
-
 void RotateMotor(char, int, int);           // function declaration
 
-// define pins
+// define pins, initialise variables
 const int stepPin = 12;               // stepper motor pins
 const int dirPin = 11;
-
-const int pResistor = A0;             // photoresistor at analog pin A0 (photoresistor is analog, plugging it in to this pin allows us to get a digital value from it)
-
-
-// initialise variables
+const int pResistor = A0;            
 
 int lightValue = 0;             // stores value from photoresistor (0-1023)
-
 bool hasRotatedClockwise;
 bool hasRotatedCounterClockwise;
 
-
 void setup() {
-
-  // initialising every component, setting it as input/output
-
-  pinMode(stepPin,OUTPUT);      // motor is an output 
+  
+  pinMode(stepPin,OUTPUT);       
   pinMode(dirPin,OUTPUT);
-
-  pinMode(pResistor, INPUT);    // photoresistor is an input
-
+  pinMode(pResistor, INPUT);    
 }
 
 void loop() {
@@ -61,15 +50,11 @@ void loop() {
 void RotateMotor(char direction, int speed, int runtime)
 {
   // direction - user inputs HIGH or LOW for direction parameter. HIGH = clockwise, LOW = anticlockwise
-
   // speed = delay (in microseconds) between steps (higher delay = slower rotation, lower delay = faster rotation)
-
   // runtime = the total number of steps the motor does (i < runtime in the for loop) 
 
- 
   digitalWrite(dirPin, direction);      // enables clockwise or anticlockwise movement depending on whether user inputted HIGH or LOW for the direction parameter        
  
-
   for (int i = 0; i < runtime; i++)
   {
     digitalWrite(stepPin,HIGH); 
@@ -77,5 +62,4 @@ void RotateMotor(char direction, int speed, int runtime)
     digitalWrite(stepPin,LOW); 
     delayMicroseconds(speed); 
   }
-
 }
